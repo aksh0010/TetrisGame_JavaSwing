@@ -3,26 +3,6 @@ import java.util.Random;
 
 public class Shape {
 
-	enum Tetromions{
-		NoShape(new int[][] {{0,0},{0,0},{0,0},{0,0}}),
-		ZShape(new int[][] {{0,-1},{0,0},{-1,0},{-1,1}}),
-		SShape(new int[][] {{0,-1},{0,0},{1,0},{1,1}}),
-		LineShape(new int[][] {{0,-1},{0,0},{0,1},{0,2}}),
-		TShape(new int[][] {{-1,0},{0,0},{1,0},{0,1}}),
-		SquareShape(new int[][] {{0,0},{1,0},{0,1},{1,1}}),
-		LShape(new int[][] {{-1,-1},{0,-1},{0,0},{0,1}}),
-		MirroredShape(new int[][] {{1,-1},{0,-1},{0,0},{0,1}});
-		
-		
-		public int [][] coords; // X, y coordinates for the shapes
-		
-		
-		private Tetromions (int [][] coords) {
-			
-			this.coords = coords;
-			
-		}}
-	
 	private Tetromions pieceShape;
 	private int[][] coords;
 	
@@ -55,13 +35,13 @@ public class Shape {
 	coords[index][1]=y;	
 	}
 	
-	private int x(int index) {
+	public int x(int index) {
 		
 		return coords[index][0];
 		
 		
 	}
-	private int y(int index) {
+	public int y(int index) {
 		
 		return coords[index][1];
 		
@@ -75,7 +55,7 @@ public class Shape {
 	public void setRandomShape() {
 		
 		Random random = new Random();
-		int x = Math.abs(random.nextInt());
+		int x = Math.abs(random.nextInt()) %7+1;
 		
 		Tetromions[] values= Tetromions.values();
 		setShape(values[x]);
