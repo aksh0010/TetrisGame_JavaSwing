@@ -13,7 +13,7 @@ public class Tetris extends JFrame{
 		add(statusBar,BorderLayout.NORTH);
 		Board board = new Board(this);
 		add (board);
-		
+		//hello
 		//add one piece
 		board.newPiece();
 		board.repaint();
