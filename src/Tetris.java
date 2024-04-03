@@ -1,4 +1,3 @@
-
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
@@ -13,6 +12,9 @@ public class Tetris extends JFrame{
 		add(statusBar,BorderLayout.NORTH);
 		Board board = new Board(this);
 		add (board);
+
+		//Starting lines down
+		board.start();
 		
 		//add one piece
 		board.newPiece();
@@ -33,6 +35,12 @@ public class Tetris extends JFrame{
 		Tetris t = new Tetris();
 		t.setLocationRelativeTo(null); // center
 		t.setVisible(true);
+		
+		// Testing
+
+		//Now we add interaction to play 
+
+		
 		
 		
 	}

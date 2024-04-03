@@ -27,12 +27,13 @@ public class Shape {
 	}
 	
 	private void setX(int index, int x) {
-		
-	coords[index][0]=x;	
+	
+		coords[index][0]=x;	
 	}
 	private void setY(int index, int y) {
 		
-	coords[index][1]=y;	
+	
+		coords[index][1]=y;	
 	}
 	
 	public int x(int index) {
@@ -82,4 +83,47 @@ public class Shape {
 		}
 		return m;
 	}
+
+	//To rotate shapes
+	public Shape rotateLeft(){
+		if(pieceShape == Tetromions.SquareShape){
+			return this;
+		}
+		
+		Shape result =  new Shape();
+		result.pieceShape = pieceShape;
+
+		for(int i  = 0; i < 4; i++){
+
+			result.setX(i, y(i));
+			result.setY(i, -x(i));
+
+		}
+		return result;
+
+	}
+
+	public Shape rotateRight(){
+		if(pieceShape == Tetromions.SquareShape){
+			return this;
+		}
+		
+		Shape result =  new Shape();
+		result.pieceShape = pieceShape;
+
+		for(int i  = 0; i < 4; i++){
+
+			result.setX(i, -y(i));
+			result.setY(i, x(i));
+
+		}
+		return result;
+
+	}
+
+
+
+
+
+
 }
