@@ -65,7 +65,7 @@ public class Board extends JPanel implements ActionListener{
 		return board[y*BOARD_WIDTH +x];
 	}
 	
-	public void clearBoard() {
+	public void clearBoard() { // check done
 		
 		for ( int i=0;i<BOARD_WIDTH*BOARD_HEIGHT;i++) {
 			
@@ -73,12 +73,12 @@ public class Board extends JPanel implements ActionListener{
 		}
 	}
 	
-	private void pieceDropped() {
+	private void pieceDropped() {// check done
 		for(int i =0;i<4;i++) {
 			
 			int x = curX + curPiece.x(i);
 
-			int y = curX + curPiece.y(i);
+			int y = curY - curPiece.y(i); ////////////////////// +
 			board[y*BOARD_WIDTH+x]= curPiece.getShape();
 			
 		}
@@ -106,7 +106,7 @@ public class Board extends JPanel implements ActionListener{
 		}
 	}
 	
-	private void onLineDown() {
+	private void oneLineDown() {
 		if(!tryMove(curPiece, curX, curY - 1)){
 			pieceDropped();
 		}
@@ -121,7 +121,7 @@ public class Board extends JPanel implements ActionListener{
 			newPiece();
 		}
 		else {
-			onLineDown();
+			oneLineDown();
 		}
 	}
 
@@ -142,7 +142,7 @@ public class Board extends JPanel implements ActionListener{
 	}
 	//painting the board
 	@Override
-	public void paint(Graphics g) {
+	public void paint(Graphics g) {// check done
     	super.paint(g); // call the superclass paint method to ensure proper painting behaviour
 
     	Dimension size = getSize(); //Get the size of the panel
@@ -153,7 +153,7 @@ public class Board extends JPanel implements ActionListener{
 		//Iterate  over each row and column of the board
     	for (int i = 0; i < BOARD_HEIGHT; i++) {
 
-        	for (int j = 0; j < BOARD_WIDTH; j++) {
+        	for (int j = 0; j < BOARD_WIDTH; ++j) {
 
             	Tetromions shape = shapeAt(j, BOARD_HEIGHT - i - 1);
 
@@ -168,7 +168,7 @@ public class Board extends JPanel implements ActionListener{
 
     	if (curPiece.getShape() != Tetromions.NoShape) {
 			//If there is a current piece being displayed 
-        	for (int i = 0; i < 4; i++) {
+        	for (int i = 0; i < 4; ++i) {
 
             	int x = curX + curPiece.x(i); //Calculate the X coordinate of the current block
 
@@ -182,7 +182,7 @@ public class Board extends JPanel implements ActionListener{
 	}
 
 	//Method to start the game
-	public void start(){
+	public void start(){// check done
 		if(isPaused)
 			return;
 		
@@ -202,7 +202,7 @@ public class Board extends JPanel implements ActionListener{
 
 	//method to pause the game
 
-	public void pause(){
+	public void pause(){// check done
 		if(!isStarted)
 			return;
 		
@@ -223,8 +223,8 @@ public class Board extends JPanel implements ActionListener{
 	
 
 	//Method to try moving a piece to a new position 
-	private boolean tryMove(Shape newPiece, int newX, int newY){
-		for(int i = 0; i < 4; i++ ){
+	private boolean tryMove(Shape newPiece, int newX, int newY){// check done
+		for(int i = 0; i < 4; ++i ){
 			int x = newX + newPiece.x(i);
 			int y = newY - newPiece.y(i);
 
@@ -232,11 +232,9 @@ public class Board extends JPanel implements ActionListener{
 				return false;
 			}
 
-			if(shapeAt(newX, newY) != Tetromions.NoShape){
+			if(shapeAt(x, y) != Tetromions.NoShape){ ///////// newx, newy
 				return false;
 			}
-
-
 		}
 
 		curPiece = newPiece;
@@ -248,14 +246,14 @@ public class Board extends JPanel implements ActionListener{
 		return true;
 	}
 
-	private void removeFullLines(){
+	private void removeFullLines(){ // check done
 		int numFullLines = 0;
 
 		for(int i = BOARD_HEIGHT - 1; i >= 0; --i){
 			boolean lineIsFull = true;
 
 			for(int j = 0; j < BOARD_WIDTH; ++j){
-				if(shapeAt(i, j) == Tetromions.NoShape){
+				if(shapeAt(j, i) == Tetromions.NoShape){ //////// i,j
 					lineIsFull = false;
 					break;
 				}
@@ -276,14 +274,14 @@ public class Board extends JPanel implements ActionListener{
 					numLinesRemoved += numFullLines;
 					statusBar.setText(String.valueOf(numLinesRemoved));
 					isFallingFinished = true;
-					curPiece. setShape(Tetromions.NoShape);
+					curPiece.setShape(Tetromions.NoShape);
 					repaint();
 			}
 		}
 	}
 
 	// Adding drop down method
-	private void dropDown(){
+	private void dropDown(){// check done
 		int newY  = curY;
 
 		while (newY > 0){
@@ -336,11 +334,11 @@ public class Board extends JPanel implements ActionListener{
 				break;
 
 				case 'd':
-					onLineDown();
+					oneLineDown();
 				break;
 
 				case 'D':
-					onLineDown();
+					oneLineDown();
 				break;
 
 

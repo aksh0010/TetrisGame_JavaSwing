@@ -11,13 +11,13 @@ public class Shape {
 		coords= new int[4][2];
 		setShape(Tetromions.NoShape);
 	}
-	public void setShape(Tetromions shape) {
+	public void setShape(Tetromions shape) {// check done
 		
 		
 		for (int i=0; i<4;i++) {
 			
 			
-			for(int j=0; j<2;j++) {
+			for(int j=0; j<2;++j) {
 				
 				coords[i][j]= shape.coords[i][j];
 				
@@ -62,7 +62,7 @@ public class Shape {
 		setShape(values[x]);
 		
 	}
-	public int minX() {
+	public int minX() {// check done
 		
 		int m = coords[0][0];
 		
@@ -73,7 +73,7 @@ public class Shape {
 		return m;
 	}
 	
-	public int minY() {
+	public int minY() { // check done
 		
 		int m = coords[0][1];
 		
