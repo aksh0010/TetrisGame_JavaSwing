@@ -199,9 +199,8 @@ public class Board extends JPanel implements ActionListener{
 		clearBoard();
 
 		newPiece();
-
 		timer.start(); // timer will start swing timer that will call actionPerformed
-
+//		BackgroundSound(); 
 	}
 
 	//method to pause the game
@@ -300,14 +299,15 @@ public class Board extends JPanel implements ActionListener{
 		PieceCollisionSound();
 	}
 	private void GameOverSound() {
-		SoundPlayer.playSound("resources/round_over.wav");	
+		SoundPlayer.playSound("resources/round_over.wav",false);	
 	}
 	private void NewPieceSound() {
-		SoundPlayer.playSound("resources/new_piece.wav");
+		SoundPlayer.playSound("resources/new_piece.wav",false);
 	}
 	private void PieceCollisionSound() {
 //		SoundPlayer.playSound("resources/ping.wav");
-	}
+	}	
+	
 
 	class MyTetrisAdapter extends KeyAdapter{
 		@Override

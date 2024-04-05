@@ -19,11 +19,14 @@ public class Tetris extends JFrame {
         setPreferredSize(new Dimension(400, 800)); // Set preferred size
         setTitle("My Tetris Game");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+        BackgroundSound();
         createMenuBar(); // Create the menu bar
-        
         showWelcomeDialog(); // Display welcome dialog before starting the game
     }
+    private void BackgroundSound() {
+		
+		SoundPlayer.playSound("resources/tetris_game_background.wav",true);
+	}
     private void showWelcomeDialog() {
         JPanel welcomePanel = new JPanel();
         welcomePanel.setLayout(new BorderLayout());

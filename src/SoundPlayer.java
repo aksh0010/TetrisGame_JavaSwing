@@ -2,20 +2,19 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.File;
-/*Creating SoundPlayer class which opens a file
- * reads the .wav format audio
- * and then plays it
- * */
+
 public class SoundPlayer {
-    public static void playSound(String filename) {
+    public static void playSound(String filename, boolean loop) {
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(filename));
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
-            clip.start();
             
-            
-//            Thread.sleep(clip.getMicrosecondLength() / 1000);
+            if (loop) {
+                clip.loop(Clip.LOOP_CONTINUOUSLY); // Loop the clip continuously
+            } else {
+                clip.start(); // Play the clip once
+            }
         } catch (Exception ex) {
             System.out.println("Error with playing sound.");
             ex.printStackTrace();
