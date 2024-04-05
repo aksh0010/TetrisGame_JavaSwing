@@ -91,7 +91,12 @@ public class Board extends JPanel implements ActionListener{
 			
 		}
 	}
-	
+	private void GameOverSound() {
+		SoundPlayer.playSound("resources/round_over.wav");	
+	}
+	private void NewPieceSound() {
+		SoundPlayer.playSound("resources/wall_deflect.wav");
+	}
 	public void newPiece() {
 		
 		curPiece.setRandomShape();
@@ -103,13 +108,18 @@ public class Board extends JPanel implements ActionListener{
 			timer.stop();
 			isStarted = false;
 			statusBar.setText("Game Over");
+			GameOverSound();
 		}
+		
+		NewPieceSound();
 	}
 	
 	private void oneLineDown() {
 		if(!tryMove(curPiece, curX, curY - 1)){
 			pieceDropped();
+			SoundPlayer.playSound("resources/ping.wav");
 		}
+		
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -127,7 +137,7 @@ public class Board extends JPanel implements ActionListener{
 
 	//Drawing Tetromions
 	
-	private void drawSquare(Graphics g,int x , int y , Tetromions shape) {
+	/*private void drawSquare(Graphics g,int x , int y , Tetromions shape) {
 		Color  color = COLORS[shape.ordinal()];
 		
 		g.setColor(color);
@@ -139,7 +149,26 @@ public class Board extends JPanel implements ActionListener{
 		g.setColor(color.darker());
 		g.drawLine(x+1, y+squareHeight()-1, x+squareWidth()-1, y+squareHeight()-1);
 		g.drawLine(x+squareWidth()-1, y + squareHeight()-1, x + squareWidth()-1, y+1);
+	}*/
+	
+	private void drawSquare(Graphics g, int x, int y, Tetromions shape) {
+	    Color color = COLORS[shape.ordinal()];
+
+	    // Fill the square with a slightly darker color
+	    g.setColor(color.darker());
+	    g.fillRect(x + 1, y + 1, squareWidth() - 2, squareHeight() - 2);
+
+	    // Draw the top and left borders with a slightly lighter color
+	    g.setColor(color.brighter());
+	    g.drawLine(x, y + squareHeight() - 1, x, y);
+	    g.drawLine(x, y, x + squareWidth() - 1, y);
+
+	    // Draw the bottom and right borders with an even lighter color
+	    g.setColor(color.brighter().brighter());
+	    g.drawLine(x + 1, y + squareHeight() - 1, x + squareWidth() - 1, y + squareHeight() - 1);
+	    g.drawLine(x + squareWidth() - 1, y + squareHeight() - 1, x + squareWidth() - 1, y + 1);
 	}
+
 	//painting the board
 	@Override
 	public void paint(Graphics g) {// check done
