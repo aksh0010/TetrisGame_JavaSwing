@@ -1,20 +1,7 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-
-import javax.swing.Timer;
-import javax.swing.plaf.basic.BasicBorders;
-
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-//import Shape.Tetromions;
-
+import java.awt.event.*;
+import javax.swing.*;
 import java.awt.*;
-//import javax.swing.JPanel;
+
 
 public class Board extends JPanel implements ActionListener{
 
@@ -91,15 +78,7 @@ public class Board extends JPanel implements ActionListener{
 			
 		}
 	}
-	private void GameOverSound() {
-		SoundPlayer.playSound("resources/round_over.wav");	
-	}
-	private void NewPieceSound() {
-		SoundPlayer.playSound("resources/new_piece.wav");
-	}
-	private void PieceCollisionSound() {
-//		SoundPlayer.playSound("resources/ping.wav");
-	}
+
 	public void newPiece() {
 		
 		curPiece.setRandomShape();
@@ -140,20 +119,9 @@ public class Board extends JPanel implements ActionListener{
 
 	//Drawing Tetromions
 	
-	/*private void drawSquare(Graphics g,int x , int y , Tetromions shape) {
-		Color  color = COLORS[shape.ordinal()];
-		
-		g.setColor(color);
-		g.fillRect(x+1, y+1, squareWidth()-2, squareHeight()-2);
-		
-		g.setColor(color.brighter());
-		g.drawLine(x, y+squareHeight()-1, x, y);
-		g.drawLine(x, y, x+squareWidth()-1, y);
-		g.setColor(color.darker());
-		g.drawLine(x+1, y+squareHeight()-1, x+squareWidth()-1, y+squareHeight()-1);
-		g.drawLine(x+squareWidth()-1, y + squareHeight()-1, x + squareWidth()-1, y+1);
-	}*/
-	
+	/*
+	 * Depricated
+	 * */
 	private void drawSquare(Graphics g, int x, int y, Tetromions shape) {
 	    Color color = COLORS[shape.ordinal()];
 
@@ -320,7 +288,15 @@ public class Board extends JPanel implements ActionListener{
 		pieceDropped();
 		PieceCollisionSound();
 	}
-
+	private void GameOverSound() {
+		SoundPlayer.playSound("resources/round_over.wav");	
+	}
+	private void NewPieceSound() {
+		SoundPlayer.playSound("resources/new_piece.wav");
+	}
+	private void PieceCollisionSound() {
+//		SoundPlayer.playSound("resources/ping.wav");
+	}
 
 	class MyTetrisAdapter extends KeyAdapter{
 		@Override
