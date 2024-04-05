@@ -139,41 +139,32 @@ public class Board extends JPanel implements ActionListener{
 
 	//Drawing Tetromions
 	
-	/*
-	 * Depricated
-	 * */
-	private void drawSquare(Graphics g, int x, int y, Tetromions shape) {
-	    Color color = COLORS[shape.ordinal()];
-
-	    // Fill the square with a slightly darker color
-	    g.setColor(color.darker());
-	    g.fillRect(x + 1, y + 1, squareWidth() - 2, squareHeight() - 2);
-
-	    // Draw the top and left borders with a slightly lighter color
-	    g.setColor(color.brighter());
-	    g.drawLine(x, y + squareHeight() - 1, x, y);
-	    g.drawLine(x, y, x + squareWidth() - 1, y);
-
-	    // Draw the bottom and right borders with an even lighter color
-	    g.setColor(color.brighter().brighter());
-	    g.drawLine(x + 1, y + squareHeight() - 1, x + squareWidth() - 1, y + squareHeight() - 1);
-	    g.drawLine(x + squareWidth() - 1, y + squareHeight() - 1, x + squareWidth() - 1, y + 1);
-	}
 	// Add this method to your Board class to draw gradient squares
 	private void drawGradientSquare(Graphics2D g2d, int x, int y, Tetromions shape) {
-	    Color color = COLORS[shape.ordinal()];
-	    GradientPaint gradient = new GradientPaint(
-	        x, y, color.brighter(), x + squareWidth(), y + squareHeight(), color.darker());
-	    g2d.setPaint(gradient);
-	    g2d.fillRect(x + 1, y + 1, squareWidth() - 2, squareHeight() - 2);
-	}
+        Color color = COLORS[shape.ordinal()];
+
+        // Fill the square with a slightly darker color
+        g2d.setColor(color.darker());
+        g2d.fillRect(x + 1, y + 1, squareWidth() - 2, squareHeight() - 2);
+
+        // Draw the top and left borders with a slightly lighter color (white)
+        g2d.setColor(Color.WHITE);
+        g2d.drawLine(x, y + squareHeight() - 1, x, y); // Left border
+        g2d.drawLine(x, y, x + squareWidth() - 1, y); // Top border
+
+        // Draw the bottom and right borders with an even lighter color (white)
+        g2d.drawLine(x + 1, y + squareHeight() - 1, x + squareWidth() - 1, y + squareHeight() - 1); // Bottom border
+        g2d.drawLine(x + squareWidth() - 1, y + squareHeight() - 1, x + squareWidth() - 1, y + 1); // Right border
+    }
+
 	//painting the board
 	@Override
 	public void paint(Graphics g) {
 	    super.paint(g);
 
 	    Graphics2D g2d = (Graphics2D) g;
-
+	    g2d.setColor(Color.BLACK);
+        g2d.fillRect(0, 0, getWidth(), getHeight());
 	    Dimension size = getSize();
 	    int boardTop = (int) size.getHeight() - BOARD_HEIGHT * squareHeight();
 
