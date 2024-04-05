@@ -6,13 +6,33 @@ import java.awt.*;
 public class Board extends JPanel implements ActionListener{
 
 	private static final int BOARD_WIDTH=10 , BOARD_HEIGHT=22;
-	private static final Color[] COLORS= {new Color(0,0,0),new Color(204,102,102),
+	/*private static final Color[] COLORS= {
+		new Color(0,0,0),
+		new Color(204,102,102),
 		new Color(102,204,102),
 		new Color(102,102,104),
 		new Color(204,204,102),
 		new Color(204,102,204),
 		new Color(102,204,204),
-		new Color(218,170,0)};
+		new Color(218,170,0)};*/
+	
+	private static final Color[] COLORS = {
+		    new Color(0, 0, 0),         // Black
+		    new Color(204, 102, 102),   // Red
+		    new Color(102, 204, 102),   // Green
+		    new Color(102, 102, 204),   // Blue
+		    new Color(204, 204, 102),   // Yellow
+		    new Color(204, 102, 204),   // Purple
+		    new Color(102, 204, 204),   // Cyan
+		    new Color(218, 170, 0),     // Orange
+		    new Color(255, 102, 102),   // Light Red
+		    new Color(102, 255, 102),   // Light Green
+		    new Color(102, 102, 255),   // Light Blue
+		    new Color(255, 255, 102),   // Light Yellow
+		    new Color(255, 102, 255),   // Light Purple
+		    new Color(102, 255, 255),   // Light Cyan
+		    new Color(255, 204, 102)    // Light Orange
+		};
 	
 	private Timer timer;
 	private boolean isFallingFinished=false;
@@ -307,7 +327,7 @@ public class Board extends JPanel implements ActionListener{
 
 			int keyCode = ke.getKeyCode();
 
-			if(keyCode == 'p' || keyCode == 'p'){
+			if(keyCode == 'p' || keyCode == 'P'){
 				pause();
 			}
 			if(isPaused){
