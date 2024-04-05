@@ -95,7 +95,10 @@ public class Board extends JPanel implements ActionListener{
 		SoundPlayer.playSound("resources/round_over.wav");	
 	}
 	private void NewPieceSound() {
-		SoundPlayer.playSound("resources/wall_deflect.wav");
+		SoundPlayer.playSound("resources/new_piece.wav");
+	}
+	private void PieceCollisionSound() {
+//		SoundPlayer.playSound("resources/ping.wav");
 	}
 	public void newPiece() {
 		
@@ -117,7 +120,7 @@ public class Board extends JPanel implements ActionListener{
 	private void oneLineDown() {
 		if(!tryMove(curPiece, curX, curY - 1)){
 			pieceDropped();
-			SoundPlayer.playSound("resources/ping.wav");
+			PieceCollisionSound();
 		}
 		
 	}
@@ -168,48 +171,41 @@ public class Board extends JPanel implements ActionListener{
 	    g.drawLine(x + 1, y + squareHeight() - 1, x + squareWidth() - 1, y + squareHeight() - 1);
 	    g.drawLine(x + squareWidth() - 1, y + squareHeight() - 1, x + squareWidth() - 1, y + 1);
 	}
-
+	// Add this method to your Board class to draw gradient squares
+	private void drawGradientSquare(Graphics2D g2d, int x, int y, Tetromions shape) {
+	    Color color = COLORS[shape.ordinal()];
+	    GradientPaint gradient = new GradientPaint(
+	        x, y, color.brighter(), x + squareWidth(), y + squareHeight(), color.darker());
+	    g2d.setPaint(gradient);
+	    g2d.fillRect(x + 1, y + 1, squareWidth() - 2, squareHeight() - 2);
+	}
 	//painting the board
 	@Override
-	public void paint(Graphics g) {// check done
-    	super.paint(g); // call the superclass paint method to ensure proper painting behaviour
+	public void paint(Graphics g) {
+	    super.paint(g);
 
-    	Dimension size = getSize(); //Get the size of the panel
+	    Graphics2D g2d = (Graphics2D) g;
 
-    	int boardTop = (int) size.getHeight() - BOARD_HEIGHT * squareHeight(); //Calculate the top position of the board
+	    Dimension size = getSize();
+	    int boardTop = (int) size.getHeight() - BOARD_HEIGHT * squareHeight();
 
+	    for (int i = 0; i < BOARD_HEIGHT; i++) {
+	        for (int j = 0; j < BOARD_WIDTH; ++j) {
+	            Tetromions shape = shapeAt(j, BOARD_HEIGHT - i - 1);
+	            if (shape != Tetromions.NoShape) {
+	                drawGradientSquare(g2d, j * squareWidth(), boardTop + i * squareHeight(), shape);
+	            }
+	        }
+	    }
 
-		//Iterate  over each row and column of the board
-    	for (int i = 0; i < BOARD_HEIGHT; i++) {
-
-        	for (int j = 0; j < BOARD_WIDTH; ++j) {
-
-            	Tetromions shape = shapeAt(j, BOARD_HEIGHT - i - 1);
-
-            	if (shape != Tetromions.NoShape) {
-
-					//Draw the square at the correct position on the board
-
-                	drawSquare(g, j * squareWidth(), boardTop + i * squareHeight(), shape);
-            	}
-        	}
-    	}
-
-    	if (curPiece.getShape() != Tetromions.NoShape) {
-			//If there is a current piece being displayed 
-        	for (int i = 0; i < 4; ++i) {
-
-            	int x = curX + curPiece.x(i); //Calculate the X coordinate of the current block
-
-            	int y = curY - curPiece.y(i); // Adjust Y-coordinate to be subtracted
-
-				//Draw the square at the correct position on the board adjusted for the top position and Y-coordinate
-
-            	drawSquare(g, x * squareWidth(), boardTop + (BOARD_HEIGHT - y - 1) * squareHeight(), curPiece.getShape());
-        	}
-    	}	
+	    if (curPiece.getShape() != Tetromions.NoShape) {
+	        for (int i = 0; i < 4; ++i) {
+	            int x = curX + curPiece.x(i);
+	            int y = curY - curPiece.y(i);
+	            drawGradientSquare(g2d, x * squareWidth(), boardTop + (BOARD_HEIGHT - y - 1) * squareHeight(), curPiece.getShape());
+	        }
+	    }
 	}
-
 	//Method to start the game
 	public void start(){// check done
 		if(isPaused)
@@ -322,6 +318,7 @@ public class Board extends JPanel implements ActionListener{
 		}
 
 		pieceDropped();
+		PieceCollisionSound();
 	}
 
 
