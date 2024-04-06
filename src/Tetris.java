@@ -9,9 +9,14 @@ public class Tetris extends JFrame {
     private Board board;
 
     public Tetris() {
-        statusBar = new JLabel("0");
-        statusBar.setFont(new Font("Arial", Font.BOLD, 24));
-        add(statusBar, BorderLayout.NORTH);
+    	 statusBar = new JLabel("0");
+         statusBar.setFont(new Font("Arial", Font.BOLD, 24));
+         statusBar.setHorizontalAlignment(SwingConstants.CENTER); // Center align status bar text
+         statusBar.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0)); // Add padding around the text
+         statusBar.setOpaque(true); // Make the label opaque to apply background color
+         statusBar.setBackground(Color.DARK_GRAY); // Set background color
+         statusBar.setForeground(Color.WHITE); // Set text color
+         add(statusBar, BorderLayout.NORTH);
 
         board = new Board(this);
         add(board);
