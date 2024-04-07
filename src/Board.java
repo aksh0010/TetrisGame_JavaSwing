@@ -69,7 +69,7 @@ public class Board extends JPanel implements ActionListener{
 	public Tetromions shapeAt(int x, int y) {
 		
 		
-		return board[y*BOARD_WIDTH +x];
+		return board[(y*BOARD_WIDTH) +x];
 	}
 	
 	public void clearBoard() { // check done
@@ -81,12 +81,12 @@ public class Board extends JPanel implements ActionListener{
 	}
 	
 	private void pieceDropped() {// check done
-		for(int i =0;i<4;i++) {
+		for(int i =0;i<4;++i) {
 			
 			int x = curX + curPiece.x(i);
 
 			int y = curY - curPiece.y(i); ////////////////////// +
-			board[y*BOARD_WIDTH+x]= curPiece.getShape();
+			board[(y*BOARD_WIDTH)+x]= curPiece.getShape();
 			
 		}
 
@@ -102,8 +102,8 @@ public class Board extends JPanel implements ActionListener{
 	public void newPiece() {
 		
 		curPiece.setRandomShape();
-		curX = BOARD_WIDTH / 2 + 1;
-		curY= BOARD_HEIGHT - 1 + curPiece.minY();
+		curX = BOARD_WIDTH / 2 + 1;  
+		curY= (BOARD_HEIGHT - 1); // Adjusted so that box can fall from top of the frame rather than middle
 		
 		if(!tryMove(curPiece, curX, curY - 1)){
 			curPiece.setShape(Tetromions.NoShape);

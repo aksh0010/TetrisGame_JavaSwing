@@ -56,7 +56,7 @@ public class Shape {
 	public void setRandomShape() {
 		
 		Random random = new Random();
-		int x = Math.abs(random.nextInt()) %7+1;
+		int x = Math.abs(random.nextInt()) % 7 + 1;
 		
 		Tetromions[] values= Tetromions.values();
 		setShape(values[x]);

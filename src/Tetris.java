@@ -21,7 +21,7 @@ public class Tetris extends JFrame {
         board = new Board(this);
         add(board);
 
-        setPreferredSize(new Dimension(400, 800)); // Set preferred size
+        setPreferredSize(new Dimension(200, 400)); // Set preferred size
         setTitle("My Tetris Game");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         BackgroundSound();
